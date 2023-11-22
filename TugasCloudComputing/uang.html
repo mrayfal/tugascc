@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konverter Mata Uang</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        .converter {
+            width: 350px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 2px 2px 5px #888888;
+            background-color: #fff;
+        }
+
+        .result {
+            font-size: 24px;
+            margin-bottom: 10px;
+            text-align: right;
+        }
+
+        .input-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .input-group label {
+            flex: 1;
+        }
+
+        .input-group input {
+            flex: 2;
+            height: 30px;
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        button {
+            width: 100%;
+            height: 40px;
+            font-size: 18px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="converter">
+        <div class="result" id="result">Hasil:</div>
+        
+        <div class="input-group">
+            <label for="inputAmount">Jumlah</label>
+            <input type="number" id="inputAmount" placeholder="Masukkan jumlah mata uang">
+        </div>
+
+        <div class="input-group">
+            <label for="selectFrom">Dari</label>
+            <select id="selectFrom">
+                <option value="usd">USD</option>
+                <option value="eur">EUR</option>
+                <option value="idr">IDR</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label for="selectTo">Ke</label>
+            <select id="selectTo">
+                <option value="usd">USD</option>
+                <option value="eur">EUR</option>
+                <option value="idr">IDR</option>
+            </select>
+        </div>
+
+        <div class="buttons">
+            <button onclick="convertCurrency()">Konversi Mata Uang</button>
+            <button onclick="clearResult()">Reset</button>
+        </div>
+    </div>
+
+    <script>
+        function convertCurrency() {
+            const inputAmount = parseFloat(document.getElementById('inputAmount').value);
+            const selectFrom = document.getElementById('selectFrom').value;
+            const selectTo = document.getElementById('selectTo').value;
+            const rates = {
+                usd: 1, // USD to USD rate is 1
+                eur: 0.85, // Example conversion rates, you should replace these with real rates
+                idr: 14000,
+            };
+
+            const result = inputAmount * (rates[selectTo] / rates[selectFrom]);
+            document.getElementById('result').innerText = `Hasil: ${result.toFixed(2)} ${selectTo}`;
+        }
+
+        function clearResult() {
+            document.getElementById('inputAmount').value = '';
+            document.getElementById('result').innerText = 'Hasil:';
+        }
+    </script>
+</body>
+</html>
